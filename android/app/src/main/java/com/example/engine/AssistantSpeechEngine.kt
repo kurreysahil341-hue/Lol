@@ -35,7 +35,7 @@ class AssistantSpeechEngine(
     private val _volumeLevel = MutableStateFlow(0f)
     val volumeLevel: StateFlow<Float> = _volumeLevel
 
-    var languageLocale: Locale = Locale("hi", "IN")
+    var languageLocale: Locale = Locale.forLanguageTag("hi-IN")
     var speechRate: Float = 1.0f
     var speechPitch: Float = 1.0f
 

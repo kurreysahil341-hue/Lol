@@ -104,7 +104,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun startListening() {
-        speechEngine?.languageLocale = if (_speechLanguage.value == "hi-IN") Locale("hi", "IN") else Locale("en", "IN")
+        speechEngine?.languageLocale = if (_speechLanguage.value == "hi-IN") Locale.forLanguageTag("hi-IN") else Locale.forLanguageTag("en-IN")
         speechEngine?.startListening()
     }
 

@@ -23,7 +23,7 @@ abstract class AssistantDatabase : RoomDatabase() {
                     context.applicationContext,
                     AssistantDatabase::class.java,
                     "ai_assistant_db"
-                ).fallbackToDestructiveMigration().build()
+                ).fallbackToDestructiveMigration(true).build()
                 INSTANCE = instance
                 instance
             }
