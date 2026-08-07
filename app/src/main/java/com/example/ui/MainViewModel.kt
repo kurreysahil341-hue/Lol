@@ -183,7 +183,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setSpeechLanguage(langCode: String) {
         _speechLanguage.value = langCode
-        speechEngine?.languageLocale = if (langCode == "hi-IN") Locale("hi", "IN") else Locale("en", "IN")
+        speechEngine?.languageLocale = if (langCode == "hi-IN") Locale.forLanguageTag("hi-IN") else Locale.forLanguageTag("en-IN")
     }
 
     fun toggleWakeWord(active: Boolean) {
