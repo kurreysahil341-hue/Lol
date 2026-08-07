@@ -43,6 +43,19 @@ jobs:
         KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
       run: |
+        # First, restore debug.keystore from base64 if it exists, or generate a fallback
+        if [ -f debug.keystore.base64 ]; then
+          echo "Decoding debug.keystore from base64..."
+          base64 --decode debug.keystore.base64 > debug.keystore
+          mkdir -p android
+          cp debug.keystore android/
+        else
+          echo "debug.keystore.base64 not found, generating temporary debug.keystore..."
+          keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug, O=Android, C=US"
+          mkdir -p android
+          cp debug.keystore android/
+        fi
+
         if [ ! -z "$KEYSTORE_BASE64" ]; then
           echo "Decoding production keystore..."
           echo "$KEYSTORE_BASE64" | base64 --decode > release.jks
