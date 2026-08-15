@@ -1,6 +1,6 @@
 {
-  "name": "AI Assistant 2.0",
-  "description": "Production-ready Android AI Voice Assistant with natural Hindi, English & Hinglish voice recognition, system apps execution, maps navigation, phone/whatsapp actions, and security protocols.",
-  "requestFramePermissions": [],
+  "name": "Jarvis Voice Assistant",
+  "description": "An Iron Man Jarvis style voice assistant that controls system apps like calling, navigation, search, and camera using Hindi and English voice commands, optimized for mobile APK.",
+  "requestFramePermissions": ["camera", "microphone"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
