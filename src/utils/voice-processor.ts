@@ -80,7 +80,35 @@ export interface CommandResult {
  * Parsing voice inputs for custom Hindi & English triggers
  */
 export function parseVoiceCommand(text: string, contacts: Contact[]): CommandResult {
-  const t = text.toLowerCase().trim();
+  const originalText = text.toLowerCase().trim();
+
+  // Strict check: Must contain wake word "Jarvis" to authorize the command
+  const wakeWords = ["jarvis", "jarves", "jarviss", "jarwish", "javis", "jarvees", "jarvisss", "jarwis", "जार्विस"];
+  const hasWakeWord = wakeWords.some(word => originalText.includes(word));
+
+  if (!hasWakeWord) {
+    return {
+      action: "none",
+      speakText: "" // Keep silent and ignore unauthorized speech
+    };
+  }
+
+  // Remove the wake word from the query so it doesn't interfere with pattern matching
+  let cleanText = originalText;
+  for (const word of wakeWords) {
+    cleanText = cleanText.replace(new RegExp(word, "g"), "");
+  }
+  cleanText = cleanText.replace(/\s+/g, " ").trim();
+
+  // If they just said "Jarvis" as a greeting
+  if (!cleanText || cleanText === "hello" || cleanText === "hi" || cleanText === "hey" || cleanText === "wake up" || cleanText === "suno") {
+    return {
+      action: "gemini",
+      speakText: "At your service, Sir. Fully operational."
+    };
+  }
+
+  const t = cleanText;
 
   // 1. HELP / MANUAL COMMANDS
   if (t.includes("help") || t.includes("madad") || t.includes("kya kar sakte ho") || t.includes("guide")) {

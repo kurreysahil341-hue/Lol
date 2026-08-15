@@ -1,3 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">AI Assistant 2.0</string>
+    <string name="app_name">Jarvis Voice Assistant</string>
+    <string name="title_activity_main">Jarvis Voice Assistant</string>
+    <string name="package_name">com.jarvis.voiceassistant</string>
+    <string name="custom_url_scheme">com.jarvis.voiceassistant</string>
 </resources>

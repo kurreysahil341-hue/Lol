@@ -259,6 +259,25 @@ export default function App() {
   
       // Parse the triggers in Hindi / English
       const parsed = parseVoiceCommand(spokenText, contacts);
+
+      // Handle unauthorized command (Missing Jarvis Wake Word)
+      if (parsed.action === "none") {
+        setIsThinking(false);
+        setVoiceLogs((prev) => {
+          const updated = prev.map((l) =>
+            l.id === logId
+              ? {
+                  ...l,
+                  response: "Security protocol active. Wake word 'Jarvis' not detected. Command ignored, Sir.",
+                  type: "error" as const,
+                }
+              : l
+          );
+          localStorage.setItem("JARVIS_VOICE_LOGS", JSON.stringify(updated));
+          return updated;
+        });
+        return;
+      }
   
       // Action A: Camera Click command
       if (parsed.action === "camera") {
@@ -290,8 +309,7 @@ export default function App() {
       // Action B: Google Maps, WhatsApp, YouTube, Flashlight, Gmail, Spotify or other System App Intents
       if (
         parsed.action !== "gemini" && 
-        parsed.action !== "help" && 
-        parsed.action !== "none"
+        parsed.action !== "help"
       ) {
         setIsThinking(false);
         setIsSpeaking(true);
