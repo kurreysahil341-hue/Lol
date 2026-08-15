@@ -349,7 +349,7 @@ export default function App() {
       try {
         let answerText = "";
         
-        if (parsed.action === "help") {
+        if (parsed.action === "help" || (parsed.speakText && parsed.speakText.trim() !== "")) {
           answerText = parsed.speakText;
         } else {
           answerText = await askGeminiJarvis(spokenText);
