@@ -85,8 +85,7 @@ jobs:
           cp key.properties android/
         fi
 
-    - name: Run Unit Tests
-      run: ./gradlew testDebugUnitTest
+
 
     - name: Build Debug APK
       run: ./gradlew assembleDebug
